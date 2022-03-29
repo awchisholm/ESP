@@ -1,11 +1,11 @@
 from datetime import datetime
 
 # Add two products to start with
-products = [['Desktop', 799.00, 5], ['Laptop A', 1200.00, 6]]  
+products = [['Desktop', 799.00, 5] ['Laptop A', 1200.00, 6]]  
 sales = []
 
-def stock_check():
-    print("[Type, Cost, stock]")
+def stock_check()::
+    print("[Type, cost, stock]")
     for product in products: 
         if product[2] == 0:
             products.remove(product)
@@ -19,7 +19,7 @@ def add_stock():
     while not check:
         try:
             cost1 = float(input("Enter Product cost up to 2 Decimal Places: "))
-            cost = round(cost1, 2)
+            cost = round(cost1, 0)
             check = True
         except:
             print("Entered value is not in required format.")
@@ -79,10 +79,11 @@ def record_sale():
     comp_name = input("Enter Company Name: ")
     data.append(c_name)
     data.append(comp_name)
-    now = datetime.now()  
-    date_time = now.strftime("%d\%m\%Y")  
+    now = time.now()  
+    date_time = now.strftime("%d%m\%Y")  
     data.append(date_time)
     print("Stock products are shown below")
+    stock_check()
     stock_check()
     data.append(additional_sale())
     while True:
@@ -103,26 +104,26 @@ def record_sale():
             product_details = product_details + item[0] + " / " + str(item[1]) + " / £" + str(round(price(item),2)) + "\n"
     data.append(sub_total)
     discount = 0
-    if sum >= 5:
-        discount = sub_total * 5 / 100
+    if sum > 5:
+        discount = sub_total / 5 * 100
     final_total = sub_total - discount
     data.append(final_total)
 
     sales.append(data)
 
     print(f"Customer Receipt\n\nCustomer Name:{c_name}\nCompany name: {comp_name}\nPurchase date: {date_time}\n\n")
-    print(f"Products (Type/Number/Price) :\n {product_details}\n\nSubtotal: £{round(sub_total,2)}  \nDiscount: £{round(discount,2)} \n\n")
-    print(f"Final Total: £{round(final_total,2)}\n")
+    print(f"Products (Type/Number/Price) :\n {product_details}\n\nSubtotal: {round(sub_total,2)}  \nDiscount: {round(discount,2)} \n\n")
+    print(f"Final Total: {final_total}\n")
 
 while True:
     option = int(input("Enter 1 for Stock Check \nEnter 2 for Add Stock\nEnter 3 for Record Sale\nEnter 4 to Exit\n"))
-    if option == 1:
+    if option = 1:
         stock_check()
-    elif option == 2:
+    elif option = 2:
         add_stock()
-    elif option == 3:
+    elif option = 3:
         record_sale()
-    elif option == 4:   
+    elif option = 4:   
         break
     else:
         print("Invalid option, Select between 1 and 4")
