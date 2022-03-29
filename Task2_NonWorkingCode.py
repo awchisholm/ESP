@@ -1,12 +1,13 @@
 from datetime import datetime
 
+# Add two products to start with
 products = [['Desktop', 799.00, 5], ['Laptop A', 1200.00, 6]]  
 sales = []
 
 def stock_check():
     print("[Type, Cost, stock]")
-    for i in products: 
-        print(i)
+    for product in products: 
+        print(product)
 
 def add_stock():
     data = []
@@ -33,38 +34,38 @@ def add_stock():
     data.append(stock)
     products.append(data)
 
-def addition():
+def additional_sale():
     s_check = False
     q_check = False
     data1 = []
     while not s_check:
-        s_type = input("Enter the Stock Type which you want to buy: ")
+        stock_type = input("Enter the Stock Type which you want to buy: ")
 
-        for i in products:
-            if s_type.lower() == i[0].lower():  
+        for product in products:
+            if stock_type.lower() == product[0].lower():  
                 s_check = True
 
                 while not q_check:
-                    s_quantity = int(input("Enter the quantity for %s which you want to buy: " % s_type))
-                    if s_quantity > i[2]:
-                        print("Max available stock is: %s" % str(i[2]))
+                    s_quantity = int(input("Enter the quantity for %s which you want to buy: " % stock_type))
+                    if s_quantity > product[2]:
+                        print("Max available stock is: %s" % str(product[2]))
                     else:
-                        i[2] = i[2] - s_quantity
+                        product[2] = product[2] - s_quantity
                         q_check = True
                         break
         if s_check == False:
             print("Entered stock does not exist")
         if (s_check == True and q_check == True):
-            data1.append(s_type)
+            data1.append(stock_type)
             data1.append(s_quantity)
             break
 
     return data1
 
 def price(value):
-    for i in products:
-        if value[0].lower() == i[0].lower():
-            cost = value[1] * i[1]  
+    for product in products:
+        if value[0].lower() == product[0].lower():
+            cost = value[1] * product[1]  
             break
     return cost
 
@@ -79,23 +80,23 @@ def record_sale():
     data.append(date_time)
     print("Stock products are shown below")
     stock_check()
-    data.append(addition())
+    data.append(additional_sale())
     while True:
         opt = input("Add more products? press y or n: ")
         if opt.lower() == "y":
-            data.append(addition())
+            data.append(additional_sale())
         elif opt.lower() == "n":
             break
         else:
             print("invalid option")
     sum = 0
     sub_total = 0
-    product_details = ""
-    for j in data:
-        if isinstance(j, list):
-            sum = sum + int(j[1])
-            sub_total = sub_total + price(j)
-            product_details = product_details + j[0] + " / " + str(j[1]) + "\n"
+    product_details = ""  # this holds details that we build it up in a loop so we can print it later
+    for item in data:     # The data object is a list but it contains 1 or more other lists
+        if isinstance(item, list):   # this code finds the lists inside the main list
+            sum = sum + int(item[1]) # item[0] is the name of a product and item[1] is a quantity
+            sub_total = sub_total + price(item)
+            product_details = product_details + item[0] + " / " + str(item[1]) + "\n"
     data.append(sub_total)
     discount = 0
     if sum >= 5:
@@ -105,10 +106,9 @@ def record_sale():
 
     sales.append(data)
 
-    print(sales)
-    print(f"Customer Receipt\n\n  Customer Name:{c_name}\n  Company name: {comp_name}\n  Purchase date: {date_time}\n \n ",
-          f"Products (Type/Number) :\n {product_details}\n \n Subtotal: {sub_total}  \n Discount: {discount} \n ",
-          f"Final Total: {final_total}\n ")
+    print(f"Customer Receipt\n\nCustomer Name:{c_name}\nCompany name: {comp_name}\nPurchase date: {date_time}\n\n")
+    print(f"Products (Type/Number) :\n {product_details}\n\nSubtotal: {sub_total}  \nDiscount: {discount} \n\n")
+    print(f"Final Total: {final_total}\n")
 
 while True:
     option = int(input("Enter 1 for Stock Check \nEnter 2 for Add stock\nEnter 3 for Record Sale\nEnter 4 to exit\n"))
