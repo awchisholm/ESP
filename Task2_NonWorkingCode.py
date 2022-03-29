@@ -115,7 +115,7 @@ def record_sale():
     print(f"Final Total: £{round(final_total,2)}\n")
 
 while True:
-    option = int(input("Enter 1 for Stock Check \nEnter 2 for Add stock\nEnter 3 for Record Sale\nEnter 4 to Exit\n"))
+    option = int(input("Enter 1 for Stock Check \nEnter 2 for Add Stock\nEnter 3 for Record Sale\nEnter 4 to Exit\n"))
     if option == 1:
         stock_check()
     elif option == 2:
