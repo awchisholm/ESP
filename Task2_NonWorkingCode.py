@@ -7,6 +7,9 @@ sales = []
 def stock_check():
     print("[Type, Cost, stock]")
     for product in products: 
+        if product[2] == 0:
+            products.remove(product)
+    for product in products: 
         print(product)
 
 def add_stock():
@@ -37,6 +40,7 @@ def add_stock():
 def additional_sale():
     s_check = False
     q_check = False
+    remove_zero_product = False
     data1 = []
     while not s_check:
         stock_type = input("Enter the Stock Type which you want to buy: ")
@@ -96,22 +100,22 @@ def record_sale():
         if isinstance(item, list):   # this code finds the lists inside the main list
             sum = sum + int(item[1]) # item[0] is the name of a product and item[1] is a quantity
             sub_total = sub_total + price(item)
-            product_details = product_details + item[0] + " / " + str(item[1]) + "\n"
+            product_details = product_details + item[0] + " / " + str(item[1]) + " / £" + str(round(price(item),2)) + "\n"
     data.append(sub_total)
     discount = 0
     if sum >= 5:
         discount = sub_total * 5 / 100
-    final_total = sub_total - discount 
-    data.append(final_total)              
+    final_total = sub_total - discount
+    data.append(final_total)
 
     sales.append(data)
 
     print(f"Customer Receipt\n\nCustomer Name:{c_name}\nCompany name: {comp_name}\nPurchase date: {date_time}\n\n")
-    print(f"Products (Type/Number) :\n {product_details}\n\nSubtotal: {sub_total}  \nDiscount: {discount} \n\n")
-    print(f"Final Total: {final_total}\n")
+    print(f"Products (Type/Number/Price) :\n {product_details}\n\nSubtotal: £{round(sub_total,2)}  \nDiscount: £{round(discount,2)} \n\n")
+    print(f"Final Total: £{round(final_total,2)}\n")
 
 while True:
-    option = int(input("Enter 1 for Stock Check \nEnter 2 for Add stock\nEnter 3 for Record Sale\nEnter 4 to exit\n"))
+    option = int(input("Enter 1 for Stock Check \nEnter 2 for Add stock\nEnter 3 for Record Sale\nEnter 4 to Exit\n"))
     if option == 1:
         stock_check()
     elif option == 2:
