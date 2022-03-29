@@ -1,14 +1,12 @@
 from datetime import datetime
 
-products = [['Desktop', 799.00, 5] ['Laptop A', 1200.00, 6]]  
+products = [['Desktop', 799.00, 5], ['Laptop A', 1200.00, 6]]  
 sales = []
-
 
 def stock_check():
     print("[Type, Cost, stock]")
-    for i in products{  
+    for i in products: 
         print(i)
-
 
 def add_stock():
     data = []
@@ -22,7 +20,7 @@ def add_stock():
         except:
             print("Entered value is not in required format.")
 
-    check_1 = True  
+    check_1 = False  
     while not check_1:
         try:
             stock = int(input("Enter the amount of stock: "))
@@ -35,7 +33,6 @@ def add_stock():
     data.append(stock)
     products.append(data)
 
-
 def addition():
     s_check = False
     q_check = False
@@ -44,7 +41,7 @@ def addition():
         s_type = input("Enter the Stock Type which you want to buy: ")
 
         for i in products:
-            if s_type.lower() == i[1].lower():  
+            if s_type.lower() == i[0].lower():  
                 s_check = True
 
                 while not q_check:
@@ -64,7 +61,6 @@ def addition():
 
     return data1
 
-
 def price(value):
     for i in products:
         if value[0].lower() == i[0].lower():
@@ -72,15 +68,14 @@ def price(value):
             break
     return cost
 
-
 def record_sale():
     data = []
     c_name = input("Enter Customer Name: ")
     comp_name = input("Enter Company Name: ")
     data.append(c_name)
     data.append(comp_name)
-    now = time.now()  
-    date_time = now.strftime(“DDMMYYY)  
+    now = datetime.now()  
+    date_time = now.strftime("%d\%m\%Y")  
     data.append(date_time)
     print("Stock products are shown below")
     stock_check()
@@ -95,34 +90,35 @@ def record_sale():
             print("invalid option")
     sum = 0
     sub_total = 0
+    product_details = ""
     for j in data:
         if isinstance(j, list):
             sum = sum + int(j[1])
             sub_total = sub_total + price(j)
+            product_details = product_details + j[0] + " / " + str(j[1]) + "\n"
     data.append(sub_total)
+    discount = 0
     if sum >= 5:
-        final_total = sub_total - ((sub_total / 5) * 100)  
-    else:
-        final_total = sub_total
+        discount = sub_total * 5 / 100
+    final_total = sub_total - discount 
     data.append(final_total)              
 
     sales.append(data)
 
-
-    print("Customer Receipt\n\n  Customer Name:{}\n  Company name: {}\n  Purchase date: {}\n \n "
-          "Products (Type/Number) :\n {}\n \n Subtotal: {}  \n Total Minus Discount: {} \n "
-          "Final Total: {}\n " .format(*sales[-1]))
-
+    print(sales)
+    print(f"Customer Receipt\n\n  Customer Name:{c_name}\n  Company name: {comp_name}\n  Purchase date: {date_time}\n \n ",
+          f"Products (Type/Number) :\n {product_details}\n \n Subtotal: {sub_total}  \n Discount: {discount} \n ",
+          f"Final Total: {final_total}\n ")
 
 while True:
     option = int(input("Enter 1 for Stock Check \nEnter 2 for Add stock\nEnter 3 for Record Sale\nEnter 4 to exit\n"))
-    if option = 1:
+    if option == 1:
         stock_check()
-    elif option = 2:
+    elif option == 2:
         add_stock()
-    elif option = 3:
+    elif option == 3:
         record_sale()
-    elif option = 4:   
+    elif option == 4:   
         break
     else:
         print("Invalid option, Select between 1 and 4")
