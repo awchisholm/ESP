@@ -114,6 +114,14 @@ def do_plotting(dataframe):
         ax.plot(supplier['Date'], supplier['Profit subtotal'], label=name)
     ax.legend()
     plt.xticks(rotation=90)
+    plt.title('Profit subtotal')
+    plt.show()
+    fig, ax = plt.subplots()
+    for name, supplier in suppliers:
+        ax.plot(supplier['Date'], supplier['KGs Sold'], label=name)
+    ax.legend()
+    plt.xticks(rotation=90)
+    plt.title('KGs sold')
     plt.show()
 
 def get_date_range_all():
